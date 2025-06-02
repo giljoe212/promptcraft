@@ -28,7 +28,7 @@ const AuthLayout: React.FC<AuthLayoutProps> = ({ children }) => {
           <div className="w-12 h-12 rounded-xl bg-white/20 backdrop-blur-sm flex items-center justify-center">
             <Wand2 size={28} className="text-white" />
           </div>
-          <h1 className="ml-4 text-2xl font-bold">PromptCraft</h1>
+          <h1 className="ml-4 text-2xl font-bold">PromptPixel</h1>
         </div>
         
         <div className="flex-1 flex flex-col justify-center">
@@ -59,7 +59,7 @@ const AuthLayout: React.FC<AuthLayoutProps> = ({ children }) => {
         
         <div className="mt-auto">
           <p className="text-white/60 text-sm">
-            © 2025 PromptCraft. All rights reserved.
+            © 2025 PromptPixel. All rights reserved.
           </p>
         </div>
       </div>
