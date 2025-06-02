@@ -45,8 +45,12 @@ export default {
         },
       },
       borderRadius: {
-        'xl': '1rem',
-        '2xl': '1.5rem',
+        'sm': '0.25rem',
+        DEFAULT: '0.375rem',
+        'md': '0.5rem',
+        'lg': '0.625rem',
+        'xl': '0.75rem',
+        '2xl': '0.875rem',
       },
       boxShadow: {
         card: '0 4px 20px rgba(0, 0, 0, 0.05)',
