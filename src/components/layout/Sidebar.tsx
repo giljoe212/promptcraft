@@ -17,6 +17,10 @@ interface SidebarItemProps {
   isActive: boolean;
 }
 
+interface SidebarProps {
+  onLogout: () => void;
+}
+
 const SidebarItem: React.FC<SidebarItemProps> = ({ to, label, icon, isActive }) => (
   <Link
     to={to}
@@ -34,7 +38,7 @@ const SidebarItem: React.FC<SidebarItemProps> = ({ to, label, icon, isActive }) 
   </Link>
 );
 
-const Sidebar: React.FC = () => {
+const Sidebar: React.FC<SidebarProps> = ({ onLogout }) => {
   const location = useLocation();
   const pathname = location.pathname;
 
@@ -73,7 +77,10 @@ const Sidebar: React.FC = () => {
       
       {/* Bottom Actions */}
       <div className="px-4 py-4 border-t border-gray-200">
-        <button className="flex items-center w-full px-3 py-2 text-sm font-medium text-gray-700 rounded-lg hover:bg-gray-100 transition-colors">
+        <button 
+          onClick={onLogout}
+          className="flex items-center w-full px-3 py-2 text-sm font-medium text-gray-700 rounded-lg hover:bg-gray-100 transition-colors"
+        >
           <LogOut size={20} className="mr-3 text-gray-500" />
           Log Out
         </button>

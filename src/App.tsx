@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
 import MainLayout from './components/layout/MainLayout';
 import Dashboard from './pages/Dashboard';
@@ -9,21 +9,36 @@ import Help from './pages/Help';
 import { LoginPage, RegisterPage, ForgotPasswordPage } from './pages/AuthPages';
 
 function App() {
-  // This would come from your auth context in a real app
-  const isAuthenticated = false; // Set to true to bypass login
+  const [isAuthenticated, setIsAuthenticated] = useState(false);
+
+  const handleLogin = () => {
+    setIsAuthenticated(true);
+  };
+
+  const handleLogout = () => {
+    setIsAuthenticated(false);
+  };
 
   return (
     <Router>
       <Routes>
         {/* Auth Routes */}
-        <Route path="/login" element={<LoginPage />} />
-        <Route path="/register" element={<RegisterPage />} />
+        <Route path="/login" element={
+          isAuthenticated ? 
+            <Navigate to="/dashboard" /> : 
+            <LoginPage onLoginSuccess={handleLogin} />
+        } />
+        <Route path="/register" element={
+          isAuthenticated ? 
+            <Navigate to="/dashboard" /> : 
+            <RegisterPage />
+        } />
         <Route path="/forgot-password" element={<ForgotPasswordPage />} />
         
         {/* Protected Routes */}
         <Route 
           path="/" 
-          element={isAuthenticated ? <MainLayout /> : <Navigate to="/login" />}
+          element={isAuthenticated ? <MainLayout onLogout={handleLogout} /> : <Navigate to="/login" />}
         >
           <Route index element={<Navigate to="/dashboard" />} />
           <Route path="dashboard" element={<Dashboard />} />

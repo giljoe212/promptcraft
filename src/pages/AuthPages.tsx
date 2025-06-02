@@ -10,6 +10,10 @@ interface AuthLayoutProps {
   title: string;
 }
 
+interface LoginPageProps {
+  onLoginSuccess: () => void;
+}
+
 const AuthLayout: React.FC<AuthLayoutProps> = ({ children }) => {
   return (
     <div className="min-h-screen flex">
@@ -63,11 +67,11 @@ const AuthLayout: React.FC<AuthLayoutProps> = ({ children }) => {
   );
 };
 
-export const LoginPage: React.FC = () => {
+export const LoginPage: React.FC<LoginPageProps> = ({ onLoginSuccess }) => {
   const navigate = useNavigate();
   
   const handleLogin = () => {
-    // In a real app, we'd handle the actual authentication here
+    onLoginSuccess();
     navigate('/dashboard');
   };
   
@@ -82,8 +86,7 @@ export const RegisterPage: React.FC = () => {
   const navigate = useNavigate();
   
   const handleRegister = () => {
-    // In a real app, we'd handle the actual registration here
-    navigate('/dashboard');
+    navigate('/login');
   };
   
   return (
@@ -97,7 +100,6 @@ export const ForgotPasswordPage: React.FC = () => {
   const navigate = useNavigate();
   
   const handleForgotPassword = () => {
-    // In a real app, we'd handle the password reset email here
     navigate('/login');
   };
   
