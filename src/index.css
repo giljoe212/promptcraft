@@ -7,13 +7,8 @@
     background-image: none !important;
   }
   
-  select:focus {
-    box-shadow: 0 0 0 2px rgba(124, 58, 237, 0.1);
-  }
-  
   select option {
-    @apply py-2 px-3 rounded-lg;
-    margin: 4px;
+    @apply py-2 px-3;
   }
   
   select option:checked {
@@ -22,36 +17,5 @@
   
   select option:hover {
     @apply bg-primary-50;
-  }
-  
-  /* Style the dropdown */
-  select::-ms-expand {
-    display: none;
-  }
-  
-  @supports (-webkit-appearance: none) or (-moz-appearance: none) {
-    select {
-      -webkit-appearance: none;
-      -moz-appearance: none;
-      background-color: transparent;
-      background-repeat: no-repeat;
-      background-position: right 0.5rem center;
-      padding-right: 2rem;
-    }
-    
-    select:focus {
-      outline: none;
-    }
-  }
-  
-  /* Dropdown list styling */
-  select option {
-    background-color: white;
-    color: black;
-  }
-  
-  /* Add shadow to the dropdown */
-  select:focus {
-    filter: drop-shadow(0 4px 6px rgba(0, 0, 0, 0.1));
   }
 }
