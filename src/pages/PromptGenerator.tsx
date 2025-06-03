@@ -3,37 +3,62 @@ import { Card, CardContent, CardHeader, CardTitle } from '../components/ui/Card'
 import PromptForm from '../components/generator/PromptForm';
 import PromptResult from '../components/generator/PromptResult';
 
-// Example generated prompt
-const exampleGeneratedPrompt = `Open with a sweeping drone shot over a shallow reef shelf bursting with pink and gold coral, sunlight dancing across rippling currents and soft coral fans. A soft, cinematic music bed begins. The female narrator quietly says, "Where light first touches the world below."
-
-Cut to a wide, slow dolly shot gliding past a winding coral canyon filled with darting reef fish, capturing layers of coral branches and neon fish flickering in the shafts of light from a low angle. The narration follows: "A living maze of color and motion."
-
-Transition to a steady, elevated pan across anemone fields swaying gently near the ocean floor, where golden beams scatter through water, illuminating dancing plankton. The narration continues: "Every corner breathes with life."
-
-End with a slow tilt upward revealing the open blue fading to the deep with silhouetted sea turtles, the light dimming gently, wrapping the ocean in quiet. The narration ends with: "And the sea remembers everything."
-
-All visuals are rendered in ultra-HD, natural underwater lighting, cinematic lens flares, and ambient travel film music. No captions or text.`;
-
 const PromptGenerator: React.FC = () => {
-  const [generatedPrompt, setGeneratedPrompt] = useState('');
+  const [generatedPrompt, setGeneratedPrompt] = useState<any>(null);
   const [promptTitle, setPromptTitle] = useState('');
 
   const handleGeneratePrompt = (data: any) => {
     console.log('Form data:', data);
-    // In a real app, this would call an API to generate the prompt
     setPromptTitle(data.title);
-    setGeneratedPrompt(exampleGeneratedPrompt);
+    
+    // Example generated content with multiple sections
+    const content = {
+      sceneDescription: `Open with a sweeping drone shot over sunrise hills with drifting fog and wildflowers, golden light illuminating every curve of the terrain as mist drifts gently. A soft, cinematic music bed begins.
+
+Cut to a wide, slow dolly shot gliding past an alpine forest ridge basking in morning sun, capturing texture, depth, and movement from low angle.
+
+Transition to a steady, elevated pan across a turquoise coastline with jagged cliffs and sea foam, where natural patterns and light reflections play on the surface.
+
+End with a slow tilt upward revealing distant snow peaks glowing in golden hour, glowing beneath a soft amber sky.`,
+
+      narrationScript: `"The day begins in silence."
+
+"Light moves through the pines."
+
+"Waves shape the edge of the world."
+
+"Stillness above all."`,
+
+      shotList: `1. Drone Shot - Aerial view of hills at sunrise
+2. Dolly Shot - Low angle tracking through forest
+3. Pan Shot - Elevated view of coastline
+4. Tilt Shot - Upward movement to reveal mountains`,
+
+      visualPrompt: `Ultra-HD visuals with natural lighting and cinematic lens flares. Golden hour color grading emphasizing warm tones. Ambient atmospheric elements like mist and sea spray. No text overlays or captions.`,
+
+      storyboard: `Frame 1: Wide aerial shot, morning fog swirling around rolling hills
+Frame 2: Low tracking shot through sunlit forest, beams of light visible
+Frame 3: Side pan of dramatic coastline, waves crashing below
+Frame 4: Ending on majestic mountain peaks in golden light`
+    };
+
+    setGeneratedPrompt(content);
   };
 
   const handleCopyPrompt = () => {
-    navigator.clipboard.writeText(generatedPrompt);
+    const fullPrompt = Object.values(generatedPrompt).join('\n\n');
+    navigator.clipboard.writeText(fullPrompt);
     // In a real app, we would show a toast notification
     alert('Prompt copied to clipboard!');
   };
 
   const handleDownloadPrompt = () => {
+    const fullPrompt = Object.entries(generatedPrompt)
+      .map(([key, value]) => `# ${key.replace(/([A-Z])/g, ' $1').trim()}\n\n${value}`)
+      .join('\n\n');
+    
     const element = document.createElement('a');
-    const file = new Blob([generatedPrompt], {type: 'text/plain'});
+    const file = new Blob([fullPrompt], {type: 'text/plain'});
     element.href = URL.createObjectURL(file);
     element.download = `${promptTitle.toLowerCase().replace(/\s+/g, '-')}.txt`;
     document.body.appendChild(element);
@@ -74,34 +99,41 @@ const PromptGenerator: React.FC = () => {
           <CardContent>
             <div className="space-y-4">
               <div>
-                <h3 className="text-sm font-medium text-gray-900 mb-1">Be Specific</h3>
+                <h3 className="text-sm font-medium text-gray-900 mb-1">Scene Structure</h3>
                 <p className="text-sm text-gray-600">
-                  Include specific details about setting, lighting, camera angles, and subject matter.
+                  Break your scene into clear segments: opening, main action, transitions, and closing.
                 </p>
               </div>
               
               <div>
-                <h3 className="text-sm font-medium text-gray-900 mb-1">Use Sensory Language</h3>
+                <h3 className="text-sm font-medium text-gray-900 mb-1">Visual Details</h3>
                 <p className="text-sm text-gray-600">
-                  Describe how things look, sound, feel, and move to create vivid scenes.
+                  Include specific camera movements, lighting conditions, and atmospheric elements.
                 </p>
               </div>
               
               <div>
-                <h3 className="text-sm font-medium text-gray-900 mb-1">Structure Your Prompts</h3>
+                <h3 className="text-sm font-medium text-gray-900 mb-1">Sound Design</h3>
                 <p className="text-sm text-gray-600">
-                  For videos or stories, create a clear beginning, middle, and end.
+                  Consider music, ambient sounds, and how they complement the visuals.
+                </p>
+              </div>
+              
+              <div>
+                <h3 className="text-sm font-medium text-gray-900 mb-1">Narration</h3>
+                <p className="text-sm text-gray-600">
+                  Keep voice-over concise and poetic, enhancing rather than describing the visuals.
                 </p>
               </div>
               
               <div className="pt-4 border-t border-gray-200">
-                <h3 className="text-sm font-medium text-gray-900 mb-2">Example Format</h3>
+                <h3 className="text-sm font-medium text-gray-900 mb-2">Example Structure</h3>
                 <div className="bg-gray-50 p-3 rounded-lg text-xs text-gray-800">
-                  <p><strong>Open with:</strong> [Initial scene description]</p>
-                  <p><strong>Cut to:</strong> [Next scene description]</p>
-                  <p><strong>Transition to:</strong> [Following scene]</p>
-                  <p><strong>End with:</strong> [Final scene]</p>
-                  <p><strong>Technical details:</strong> [Specifications]</p>
+                  <p><strong>Opening:</strong> Set the scene and mood</p>
+                  <p><strong>Development:</strong> Build the narrative</p>
+                  <p><strong>Climax:</strong> Peak moment or revelation</p>
+                  <p><strong>Resolution:</strong> Satisfying conclusion</p>
+                  <p><strong>Technical:</strong> Specific requirements</p>
                 </div>
               </div>
             </div>

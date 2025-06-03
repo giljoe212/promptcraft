@@ -5,7 +5,13 @@ import { Card, CardContent, CardFooter, CardHeader, CardTitle } from '../ui/Card
 
 interface PromptResultProps {
   title: string;
-  content: string;
+  content: {
+    sceneDescription?: string;
+    narrationScript?: string;
+    shotList?: string;
+    visualPrompt?: string;
+    storyboard?: string;
+  };
   onCopy: () => void;
   onDownload: () => void;
   onShare: () => void;
@@ -24,10 +30,61 @@ const PromptResult: React.FC<PromptResultProps> = ({
         <CardTitle>{title}</CardTitle>
       </CardHeader>
       <CardContent>
-        <div className="bg-gray-50 p-4 rounded-lg border border-gray-200">
-          <p className="whitespace-pre-wrap text-gray-800 font-medium leading-relaxed">
-            {content}
-          </p>
+        <div className="space-y-6">
+          {content.sceneDescription && (
+            <div>
+              <h3 className="text-lg font-semibold mb-2">Scene Description</h3>
+              <div className="bg-gray-50 p-4 rounded-lg border border-gray-200">
+                <p className="whitespace-pre-wrap text-gray-800 font-medium leading-relaxed">
+                  {content.sceneDescription}
+                </p>
+              </div>
+            </div>
+          )}
+
+          {content.narrationScript && (
+            <div>
+              <h3 className="text-lg font-semibold mb-2">Narration Script</h3>
+              <div className="bg-gray-50 p-4 rounded-lg border border-gray-200">
+                <p className="whitespace-pre-wrap text-gray-800 font-medium leading-relaxed">
+                  {content.narrationScript}
+                </p>
+              </div>
+            </div>
+          )}
+
+          {content.shotList && (
+            <div>
+              <h3 className="text-lg font-semibold mb-2">Shot List</h3>
+              <div className="bg-gray-50 p-4 rounded-lg border border-gray-200">
+                <p className="whitespace-pre-wrap text-gray-800 font-medium leading-relaxed">
+                  {content.shotList}
+                </p>
+              </div>
+            </div>
+          )}
+
+          {content.visualPrompt && (
+            <div>
+              <h3 className="text-lg font-semibold mb-2">Visual Prompt</h3>
+              <div className="bg-gray-50 p-4 rounded-lg border border-gray-200">
+                <p className="whitespace-pre-wrap text-gray-800 font-medium leading-relaxed">
+                  {content.visualPrompt}
+                </p>
+              </div>
+            </div>
+          )}
+
+          {content.storyboard && (
+            <div>
+              <h3 className="text-lg font-semibold mb-2">Storyboard Description</h3>
+              <div className="bg-gray-50 p-4 rounded-lg border border-gray-200">
+                <p className="whitespace-pre-wrap text-gray-800 font-medium leading-relaxed">
+                  {content.storyboard}
+                </p>
+              </div>
+            </div>
+          )}
         </div>
       </CardContent>
       <CardFooter className="flex justify-end space-x-3">
