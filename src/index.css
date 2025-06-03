@@ -1,3 +1,21 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@layer base {
+  select {
+    background-image: none !important;
+  }
+  
+  select option {
+    @apply py-2 px-3;
+  }
+  
+  select option:checked {
+    @apply bg-primary-50;
+  }
+  
+  select option:hover {
+    @apply bg-primary-50;
+  }
+}
